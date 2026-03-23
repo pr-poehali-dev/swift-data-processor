@@ -1,5 +1,36 @@
 import { useReveal } from "@/hooks/use-reveal"
 
+const menuItems = [
+  {
+    number: "01",
+    title: "Тартар из лосося",
+    category: "Холодные закуски",
+    price: "890 ₽",
+    direction: "left",
+  },
+  {
+    number: "02",
+    title: "Утиная грудка конфи",
+    category: "Горячие блюда",
+    price: "1 490 ₽",
+    direction: "right",
+  },
+  {
+    number: "03",
+    title: "Крем-брюле с ванилью",
+    category: "Десерты",
+    price: "490 ₽",
+    direction: "left",
+  },
+  {
+    number: "04",
+    title: "Трюфельная паста",
+    category: "Паста и ризотто",
+    price: "1 190 ₽",
+    direction: "right",
+  },
+]
+
 export function WorkSection() {
   const { ref, isVisible } = useReveal(0.3)
 
@@ -15,36 +46,14 @@ export function WorkSection() {
           }`}
         >
           <h2 className="mb-2 font-sans text-5xl font-light tracking-tight text-foreground md:text-6xl lg:text-7xl">
-            Проекты
+            Меню
           </h2>
-          <p className="font-mono text-sm text-foreground/60 md:text-base">/ Избранные работы</p>
+          <p className="font-mono text-sm text-foreground/60 md:text-base">/ Избранные блюда</p>
         </div>
 
         <div className="space-y-6 md:space-y-8">
-          {[
-            {
-              number: "01",
-              title: "ТехноСтарт",
-              category: "Корпоративный портал",
-              year: "2024",
-              direction: "left",
-            },
-            {
-              number: "02",
-              title: "АльфаТрейд",
-              category: "Финтех платформа",
-              year: "2024",
-              direction: "right",
-            },
-            {
-              number: "03",
-              title: "МедиаПульс",
-              category: "Медиа сервис",
-              year: "2023",
-              direction: "left",
-            },
-          ].map((project, i) => (
-            <ProjectCard key={i} project={project} index={i} isVisible={isVisible} />
+          {menuItems.map((item, i) => (
+            <MenuCard key={i} item={item} index={i} isVisible={isVisible} />
           ))}
         </div>
       </div>
@@ -52,18 +61,18 @@ export function WorkSection() {
   )
 }
 
-function ProjectCard({
-  project,
+function MenuCard({
+  item,
   index,
   isVisible,
 }: {
-  project: { number: string; title: string; category: string; year: string; direction: string }
+  item: { number: string; title: string; category: string; price: string; direction: string }
   index: number
   isVisible: boolean
 }) {
   const getRevealClass = () => {
     if (!isVisible) {
-      return project.direction === "left" ? "-translate-x-16 opacity-0" : "translate-x-16 opacity-0"
+      return item.direction === "left" ? "-translate-x-16 opacity-0" : "translate-x-16 opacity-0"
     }
     return "translate-x-0 opacity-100"
   }
@@ -79,16 +88,16 @@ function ProjectCard({
     >
       <div className="flex items-baseline gap-4 md:gap-8">
         <span className="font-mono text-sm text-foreground/30 transition-colors group-hover:text-foreground/50 md:text-base">
-          {project.number}
+          {item.number}
         </span>
         <div>
           <h3 className="mb-1 font-sans text-2xl font-light text-foreground transition-transform duration-300 group-hover:translate-x-2 md:text-3xl lg:text-4xl">
-            {project.title}
+            {item.title}
           </h3>
-          <p className="font-mono text-xs text-foreground/50 md:text-sm">{project.category}</p>
+          <p className="font-mono text-xs text-foreground/50 md:text-sm">{item.category}</p>
         </div>
       </div>
-      <span className="font-mono text-xs text-foreground/30 md:text-sm">{project.year}</span>
+      <span className="font-mono text-sm text-foreground/70 md:text-base">{item.price}</span>
     </div>
   )
 }
